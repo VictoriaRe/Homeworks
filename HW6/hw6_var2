@@ -1,0 +1,78 @@
+#Эта программа генерирует стихотворения с соблюдением метрической схемы - трёхстопный амфибрахий
+import random
+
+def choice_lex(lex):
+#эта функция выбирает случайно слово из списка
+    return random.choice(lex)
+
+def punctuation():
+    # эта функция возвращает случайный знак препинания из небольшого списка; у неё нет аргументов
+    marks = [".", "?", "!"]
+    return random.choice(marks)
+
+def verse1():
+    # эта функция собирает строчку из клитики (короткого безударного слова),  существительного ед.ч.И.п., 
+    # глагола 3 лица ед.ч., существительного ед.ч. В.п и знака препинания
+    # например "щас ботан целует бутылку!"
+    return choice_lex(clitics) + ' ' + choice_lex(nouns) + ' ' +  choice_lex(verbs) + ' '+ choice_lex(nouns_ACC) + punctuation()
+
+def verse2():
+    # эта функция собирает строчку из клитики (короткого безударного слова), глагола в одной из 5 форм
+    # (то есть глагола в форме изъяв.накл. 1, 2 или 3 лица ед.ч. и 1 и 3 лица мн.ч.), одного из союзов "как"/"что",
+    # существительного ед.ч.И.п, глагола 3 лица ед.ч. и знака препинания
+    # например "уж видим, как прога пугает? "
+    return choice_lex(clitics) + ' ' + choice_lex(verbforms) + ', ' +  choice_lex(conj) + ' '+ choice_lex(nouns) +' ' +choice_lex(verbs) + punctuation()
+
+def verse3():
+    # эта функция собирает строчку из трех существительных ед.ч. И.п. и знака препинания
+    # например "тетрадка! стипуха! малина?"
+    return choice_lex(nouns_NOM) + '! ' + choice_lex(nouns_NOM) + '! ' +  choice_lex(nouns_NOM) + punctuation()
+
+
+def make_verse():
+    # эта функция выбирает случайный номер из 1,2,3 и возвращает соответствующую строчку
+    verse = random.choice([1,2,3])
+    if verse == 1:
+        return verse1()
+    elif verse == 2:
+        return verse2()
+    else:
+        return verse3()
+
+def readfile(listfile):
+    global clitics, nouns_ACC, nouns_NOM, verbs, verbforms, nouns, conj
+    for i in range(len(listfile)):
+        namefile=str(listfile[i])+".txt"
+        with open (namefile, "r", encoding="utf-8") as f:
+            s=f.read()
+            if listfile[i]=="clitics":
+                clitics=s.split()
+            elif listfile[i]=="nouns_ACC":
+                nouns_ACC=s.split()
+            elif listfile[i]=="nouns_NOM":
+                nouns_NOM=s.split()
+            elif listfile[i]=="verbs":
+                verbs=s.split()
+            elif listfile[i]=="verbforms":
+                verbforms=s.split()
+            elif listfile[i]=="nouns":
+                nouns=s.split()
+            elif listfile[i]=="conj":
+                conj=s.split()
+                
+#Основная программа
+clitics=[]
+nouns_ACC=[]
+nouns_NOM=[]
+verbs=[]
+verbforms=[]
+nouns=[]
+conj=[]
+
+l=["clitics", "nouns_ACC", "nouns_NOM", "verbs", "verbforms", "nouns", "conj"]
+
+readfile(l)
+for n in range(4):
+    print(make_verse())
+
+
