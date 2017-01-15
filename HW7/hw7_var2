@@ -1,0 +1,56 @@
+#1 fopen открываем и считываем файл, по строкам читаем
+# создаем пустой список слов listword на несс,
+# создаем пустой список счетчиков listcount
+# в каждой строке ищем слово на ness
+# проверить есть ли оно в списке
+# если есть, определяем его индекс в списке слов
+# и ищем по индексу в списке счетчиков и прибавл 1
+# если нет, добавить в listword и добавить элемент счетчика
+# найти колво элементов listword
+# найти наибольшее значение элемента в listcount
+def search_word(r):
+    global listword, listcount, maximum
+    r=r.split()
+    for i in range(len(r)):
+        word=r[i]
+        word=word.lower()
+        if word.endswith('ness')==True:
+            if word in listword:
+                index=listword.index(word)
+                listcount[index]+=1
+                if listcount[index]>maximum:
+                    maximum=listcount[index]
+            else:
+                listword.append(word)
+                listcount.append(int(1))
+
+def indexmostpopular():
+    global maximum
+    listindex=[]
+   
+    for i in range(len(listcount)):
+         if listcount[i]==maximum:
+            listindex.append(i)
+    return listindex
+
+def printresult(l):
+    for i in range(len(l)):
+        print(listword[l[i]])
+    
+      
+maximum=0   
+listword=[]
+listcount=[]
+#namefile=input("Enter the file name...")
+namefile="pride1.txt"
+with open (namefile, "r", encoding="utf-8") as f:
+    for row in f.readlines():
+        search_word(row)
+
+r=indexmostpopular()
+
+print("В тексте след кол-во разных сущ на ness: ", len(listword))
+print("Наиболее частотное(ые) сущ среди них:")
+printresult(r)
+print("Частность этих слов: ", maximum)
+
