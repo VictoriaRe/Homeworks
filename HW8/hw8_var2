@@ -1,0 +1,43 @@
+# счит слова из файла по строкам по запятым 
+#1 угадайте слово
+#2 считать словарь рандомно выбрать значение 
+#2 подсказка: случайное прилаг +точки: колво букв
+#3 какое слово? ввод
+#4 правильно/неправильно сравнить с тем что должно быть
+import random
+def createdict():
+    d={}
+    with open ("words.csv", "r", encoding="utf-8") as f:
+        for line in f:
+            #line=line[:-1]
+            line=line.rstrip("\n")
+            line=line.split(",")
+            d[line[0]]=line[1]
+        return d
+
+def randomkeys(d):
+    k=list(d.keys())
+    #print(k)
+    return random.choice(k)
+
+    
+def replaceletters(w):
+    res=""
+    for i in range(len(w)):
+        res+=".  "
+    return res
+
+print("Угадайте слово!")
+dict=createdict()
+#задаем слово которое нужно будет угадать
+word=randomkeys(dict)
+print("Вот подсказка!")
+print(dict[word]+" "+ replaceletters(word)+" (здесь точек столько, сколько и букв в слове)")
+answer=input("Ваш ответ: ")
+if answer==word:
+    print("Йес! Победа!")
+else:
+    print("Не везёт вам в картах(зачернуто) играх, повезёт в любви <3")
+
+
+        
