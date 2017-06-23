@@ -54,9 +54,10 @@ for root, dirs, files in os.walk('news'):
                 text=f.read()
                 with open ("words_counting", "a", encoding="utf-8") as t:
                     t.write(file+"\t"+str(first_task(text))+"\n")
+                    second_task(file,text)
              
-                with open('list_to_csv.csv', 'w', newline='') as csv_file:
-                    csv_writer = csv.writer(second_task(text))
+
+              
         #   for i in range(len(datas)):
         #csv_writer.writerow(datas[i][15:-15])
        # for i in range(len(authors)):
