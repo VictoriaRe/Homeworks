@@ -54,7 +54,8 @@ for root, dirs, files in os.walk('news'):
                 text=f.read()
                 with open ("words_counting", "a", encoding="utf-8") as t:
                     t.write(file+"\t"+str(first_task(text))+"\n")
-                    second_task(file,text)
+    second_task(file,text)
+                    
              
 
               
